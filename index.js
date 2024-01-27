@@ -1,8 +1,9 @@
-import app from "./app.js";
+import app from './app.js'
+import connectDB from './db/dbconnection.js'
 
- const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000
 
- app.listen(PORT,()=>{
-  console.log(`server runnig on port http://localhost:${PORT}`);
- })
- 
+app.listen(PORT, () => {
+  connectDB()
+  console.log(`server runnig on port http://localhost:${PORT}`)
+})
