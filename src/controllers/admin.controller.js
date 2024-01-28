@@ -1,6 +1,5 @@
 import Admin from '../models/admin.model.js'
 
-
 console.log(Admin)
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 1000,
@@ -130,7 +129,7 @@ const loginAdmin = async (req, res) => {
 // })
 
 const logoutAdmin = async (req, res) => {
-  const {id} = req.admin
+  const { id } = req.admin
 
   console.log(req.admin)
   res.cookie('token', null, {
@@ -139,13 +138,10 @@ const logoutAdmin = async (req, res) => {
     httpOnly: true
   })
 
-
-  
   res.status(200).json({
     success: true,
 
-    msg: 'user logout zala',
-
+    msg: 'user logout zala'
   })
 }
 
@@ -159,7 +155,7 @@ const getAdmin = async (req, res) => {
       success: true,
 
       msg: 'user detail',
-      user
+      admin
     })
   } catch (error) {
     res.status(200).json({
