@@ -1,5 +1,7 @@
 import app from './app.js'
-import connectDB from './db/dbconnection.js'
+import connectDB from './src/db/dbconnection.js'
+import { config } from 'dotenv'
+config()
 
 const PORT = process.env.PORT || 5000
 
