@@ -59,12 +59,12 @@ res.cookie("token",token,cookieOptions)
 
 
 
-const loginUser = async (req, res) =>{
-  const {email, username, password} = req.body
+const loginAdmin = async (req, res) =>{
+  const {email, password} = req.body
   console.log(email);
 
   try {
-    if (!username && !email) {
+    if (!password || !email) {
        res.status(400).json({
         success:false,
         msg:"user name and email are required"
@@ -83,7 +83,7 @@ const loginUser = async (req, res) =>{
     }
 
 
-    const token = admin.generateJWTToken()
+    const token =await  admin.generateJWTToken()
     admin.password =  undefined;
     res.cookie('token',token,cookieOptions);
     
@@ -91,7 +91,11 @@ const loginUser = async (req, res) =>{
   
       success:true,
   
-      msg:"admin login successfully"
+      msg:"admin login successfully",
+      
+      admin,
+      token
+      
      })
     }
     
@@ -135,4 +139,54 @@ const loginUser = async (req, res) =>{
 //   )
 
 // })
-export { registerAdmin }
+
+const logoutAdmin = async (req,res)=>{
+  res.cookie( 'token',null,{
+    secure:true,
+    maxAge:0,
+    httpOnly:true
+  })
+
+  res.status(200).json({
+  
+    success:true,
+
+
+    msg:"user logout zala"
+   })
+
+}
+
+
+const getAdmin = async (req,res)=>{
+  try {
+    
+    const adminId = req.admin.id;
+    
+    const admin = await Admin.findById(adminId)
+
+    res.status(200).json({
+  
+      success:true,
+  
+  
+      msg:"user detail",
+      user
+
+     })
+  
+    
+  } catch (error) {
+    
+    res.status(200).json({
+  
+      success:true,
+  
+  
+      msg:"failed to fetch admin profile",
+      user
+
+     })
+  }
+}
+export { registerAdmin, loginAdmin, logoutAdmin,getAdmin }
