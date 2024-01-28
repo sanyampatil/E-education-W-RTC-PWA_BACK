@@ -9,7 +9,7 @@ const cookieOptions = {
 const registerAdmin = async (req, res) => {
   const { email, username, password } = req.body
   console.log(email, password, username)
-  console.log("hiiii aalo bhau")
+  console.log("hiiii aalo bhau")  
 
   if (!username || !email || !password) {
     res.status(400).json({

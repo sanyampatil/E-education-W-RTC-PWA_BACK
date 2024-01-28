@@ -1,87 +1,146 @@
-import mongoose, {Schema} from "mongoose";
-import jwt from "jsonwebtoken"
-import bcrypt from "bcrypt"
+import User from "../models/user.model"
 
-const userSchema = new Schema(
-    {
-        username: {
-            type: String,
-            required: true,
-            unique: true,
-            lowercase: true,
-            trim: true, 
-            index: true
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-            lowecase: true,
-            trim: true, 
-        },
-        fullName: {
-            type: String,
-            required: true,
-            trim: true, 
-            index: true
-        },
-        avatar: {
-            type: String, // cloudinary url
-            required: true,
-        },
-        coverImage: {
-            type: String, // cloudinary url
-        },
-        password: {
-            type: String,
-            required: [true, 'Password is required']
-        },
-        refreshToken: {
-            type: String
-        }
+const cookieOptions = {
+  maxAge: 7 * 24 * 60 * 1000,
+  httpOnly: true,
+  secure: true
+}
+const registerUser = async (req, res) => {
+  const { email, username, password } = req.body
+  console.log(email, password, username)
+  console.log("hiiii aalo bhau")
 
-    },
-    {
-        timestamps: true
+  if (!username || !email || !password) {
+    res.status(400).json({
+      success: false,
+      msg: 'all fields are required'
+    })
+  }
+
+  const existedUser = await User.findOne({ email })
+
+  if (existedUser) {
+    res.status(400).json({
+      success: false,
+      msg: 'user already exists'
+    })
+  }
+
+  
+  const user = await User.create({
+
+    username,
+    email,
+    password
+  })
+
+  await user.save()
+  admin.password = undefined
+
+  const token = await user.generateJWTToken()
+
+
+  res.cookie('token', token, cookieOptions)
+
+  res.status(400).json({
+    success: true,
+    msg: 'user registration successfuly!!',
+    user,
+
+    token
+  })
+}
+
+const loginUser = async (req, res) => {
+
+  const { email, password } = req.body
+  console.log(email)
+
+  try {
+    if (!password || !email) {
+      res.status(400).json({
+        success: false,
+        msg: 'user name and email are required'
+      })
     }
-)
 
-userSchema.pre("save", async function (next) {
-    if(!this.isModified("password")) return next();
+    const user = await User.findOne({ email }).select('+password')
 
-    this.password = await bcrypt.hash(this.password, 10)
-    next()
-})
+    if (!user || !user.comparePassword(password)) {
+      res.status(400).json({
+        success: false,
+        msg: 'email or password dose not match'
+      })
+    }
 
-userSchema.methods.isPasswordCorrect = async function(password){
-    return await bcrypt.compare(password, this.password)
+    const token = await user.generateJWTToken()
+    user.password = undefined
+
+    res.cookie('token', token, cookieOptions)
+
+    res.status(200).json({
+      success: true,
+
+      msg: 'admin login successfully',
+
+     user,
+
+      token
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+
+      msg: 'admin login nahi zala'
+    })
+  }
 }
 
-userSchema.methods.generateAccessToken = function(){
-    return jwt.sign(
-        {
-            _id: this._id,
-            email: this.email,
-            username: this.username,
-            fullName: this.fullName
-        },
-        process.env.ACCESS_TOKEN_SECRET,
-        {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRY
-        }
-    )
-}
-userSchema.methods.generateRefreshToken = function(){
-    return jwt.sign(
-        {
-            _id: this._id,
-            
-        },
-        process.env.REFRESH_TOKEN_SECRET,
-        {
-            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
-        }
-    )
+
+const logoutUser = async (req, res) => {
+    
+  const { id } = req.user
+
+
+  console.log(req.user)
+
+  res.cookie('token', null, {
+    secure: true,
+    maxAge: 0,
+    httpOnly: true
+  })
+
+  res.status(200).json({
+    success: true,
+
+    msg: 'user logout zala'
+  })
 }
 
-export const User = mongoose.model("User", userSchema)
+const getUser = async (req, res) => {
+
+  try {
+    const userId = req.user.id
+
+
+    const user = await User.findById(userId)
+
+
+
+    res.status(200).json({
+      success: true,
+
+      msg: 'user detail',
+      user
+    })
+  } catch (error) {
+    res.status(200).json({
+      success: true,
+
+      msg: 'failed to fetch admin profile',
+      user
+    })
+  }
+}
+export { registerUser,logoutUser,loginUser,getUser}
+

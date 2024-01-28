@@ -10,9 +10,9 @@ app.use(cookieParser())
 
 // console.log(CLINT_URL)
 app.use(cors({
- origin:[process.env.CLINT_URL],
+ origin:process.env.CLINT_URL,
+ methods:'GET,POST,PUT,DELETE',
  credentials:true,
- methods:'GET,POST,PUT,DELETE'
 
 }))
 app.get("/" ,(req,res)=>{
