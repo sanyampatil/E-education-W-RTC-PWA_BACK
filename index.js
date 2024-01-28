@@ -1,9 +1,10 @@
 import app from './app.js'
 import connectDB from './src/db/dbconnection.js'
 import { config } from 'dotenv'
+
 config()
 
-const PORT = process.env.PORT || 2000
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
   connectDB()
