@@ -3,7 +3,7 @@ import connectDB from './src/db/dbconnection.js'
 import { config } from 'dotenv'
 config()
 
-const PORT = 5000
+const PORT = process.env.PORT || 2000
 
 app.listen(PORT, () => {
   connectDB()
