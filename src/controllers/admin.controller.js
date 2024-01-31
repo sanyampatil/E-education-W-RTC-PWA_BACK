@@ -9,7 +9,7 @@ const cookieOptions = {
   secure: true
 }
 const registerAdmin = async (req, res, next) => {
-  
+
   const { username, email, password } = req.body
   console.log(email, password, username)
   console.log('hiiii aalo bhau 1')
@@ -35,27 +35,27 @@ const registerAdmin = async (req, res, next) => {
     //   })
     // }
 
-    const admin = await Admin.create({
-      username,
-      email,
-      password
-    })
+      const admin = await Admin.create({
+        username,
+        email,
+        password
+      })
 
-    await admin.save()
+      await admin.save()
     admin.password = undefined
 
     const token = await admin.generateJWTToken()
 
     res.cookie('token', token, cookieOptions)
 
-    res.status(400).json({
-      success: true,
-      msg: 'user registration successfuly!!',
-      admin,
-      token
-    })
+      res.status(200).json({
+        success: true,
+        msg: 'user registration successfuly!!',
+        admin,
+        token
+      })
   } catch (error) {
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       msg: 'nahi registration successfuly!!',
       error
