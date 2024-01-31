@@ -3,10 +3,10 @@ import User from "../models/user.model"
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 1000,
   httpOnly: true,
-  secure: true
+  secure: false
 }
 const registerUser = async (req, res) => {
-  const { email, username, password } = req.body
+  const { username,email, password } = req.body
   console.log(email, password, username)
   console.log("hiiii aalo bhau")
 
@@ -46,7 +46,6 @@ const registerUser = async (req, res) => {
     success: true,
     msg: 'user registration successfuly!!',
     user,
-
     token
   })
 }

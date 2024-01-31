@@ -6,13 +6,13 @@ const adminSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
       index: true
     },
     email: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
       lowecase: true,
       trim: true
@@ -30,7 +30,7 @@ const adminSchema = new Schema(
 
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      // required: [true, 'Password is required'],
       select:false
     }
   },
@@ -45,12 +45,13 @@ adminSchema.pre('save', async function (next) {
   }
 
   this.password = await bcrypt.hash(this.password, 10)
+  console.log(this)
 //   next()
 })
 
-// adminSchema.methods.isPasswordCorrect = async function(password){
-//     return await bcrypt.compare(password, this.password)
-// }
+adminSchema.methods.isPasswordCorrect = async function(password){
+    return await bcrypt.compare(password, this.password)
+}
 
 adminSchema.methods.generateJWTToken = async function () {
   return await jwt.sign(
