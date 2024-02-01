@@ -63,47 +63,47 @@ const registerAdmin = async (req, res, next) => {
   }
 }
 
-// const loginAdmin = async (req, res) => {
-//   const { email, password } = req.body
-//   console.log(email)
+const loginAdmin = async (req, res) => {
+  const { email, password } = req.body
+  console.log(email)
 
-//   try {
-//     if (!password || !email) {
-//       res.status(400).json({
-//         success: false,
-//         msg: 'user name and email are required'
-//       })
-//     }
+  try {
+    if (!password || !email) {
+      res.status(400).json({
+        success: false,
+        msg: 'user name and email are required'
+      })
+    }
 
-//     const admin = await Admin.findOne({ email }).select('+password')
+    const admin = await Admin.findOne({ email }).select('+password')
 
-//     if (!admin || !admin.comparePassword(password)) {
-//       res.status(400).json({
-//         success: false,
-//         msg: 'email or password dose not match'
-//       })
-//     }
+    if (!admin || !admin.comparePassword(password)) {
+      res.status(400).json({
+        success: false,
+        msg: 'email or password dose not match'
+      })
+    }
 
-//     const token = await admin.generateJWTToken()
-//     admin.password = undefined
-//     res.cookie('token', token, cookieOptions)
+    const token = await admin.generateJWTToken()
+    admin.password = undefined
+    res.cookie('token', token, cookieOptions)
 
-//     res.status(200).json({
-//       success: true,
+    res.status(200).json({
+      success: true,
 
-//       msg: 'admin login successfully',
+      msg: 'admin login successfully',
 
-//       admin,
-//       token
-//     })
-//   } catch (error) {
-//     res.status(400).json({
-//       success: false,
+      admin,
+      token
+    })
+  } catch (error) {
+    res.status(400).json({
+      success: false,
 
-//       msg: 'admin login nahi zala'
-//     })
-//   }
-// }
+      msg: 'admin login nahi zala'
+    })
+  }
+}
 
 //  const isPasswordValid = await user.isPasswordCorrect(password)
 

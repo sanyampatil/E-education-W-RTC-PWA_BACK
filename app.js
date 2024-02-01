@@ -6,8 +6,8 @@ import bodyParser from 'body-parser'
 const app = express()
 
 
-app.use(cors({
-  origin:'http://localhost:5174',
+app.use (cors({
+  origin:'http://localhost:5173',
   credentials: true,
   methods: ['GET', 'POST', 'DELETE', 'PUT'],
 
@@ -23,5 +23,5 @@ app.use(bodyParser.json())
 
 
 app.use('/api/v1/admin', adminRouter)
-app.options('*',cors())
+// app.options('*',cors())
 export default app

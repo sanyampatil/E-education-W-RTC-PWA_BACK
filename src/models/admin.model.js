@@ -6,13 +6,13 @@ const adminSchema = new Schema(
   {
     username: {
       type: String,
-      // required: true,
+      required: true,
       trim: true,
       index: true
     },
     email: {
       type: String,
-      // required: true,
+      required: true,
       unique: true,
       lowecase: true,
       trim: true
@@ -30,7 +30,7 @@ const adminSchema = new Schema(
 
     password: {
       type: String,
-      // required: [true, 'Password is required'],
+      required: [true, 'Password is required'],
       select:false
     }
   },
