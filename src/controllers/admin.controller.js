@@ -69,19 +69,16 @@ const loginAdmin = async (req, res) => {
 
   try {
     if (!password || !email) {
-      res.status(400).json({
-        success: false,
-        msg: 'user name and email are required'
-      })
+      return next(new Apperror('all fields are required', 400))
+      
     }
 
     const admin = await Admin.findOne({ email }).select('+password')
 
     if (!admin || !admin.comparePassword(password)) {
-      res.status(400).json({
-        success: false,
-        msg: 'email or password dose not match'
-      })
+      return next(new Apperror('email dose not match', 400))
+
+      
     }
 
     const token = await admin.generateJWTToken()
@@ -174,4 +171,4 @@ const loginAdmin = async (req, res) => {
 //     })
 //   }
 // }
-export { registerAdmin }
+export { registerAdmin,loginAdmin }
