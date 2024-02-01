@@ -50,7 +50,7 @@ const registerAdmin = async (req, res, next) => {
 
       res.status(200).json({
         success: true,
-        msg: 'user registration successfuly!!',
+        message: 'user registration successfuly!!',
         admin,
         token
       })
@@ -79,7 +79,7 @@ const loginAdmin = async (req, res) => {
       return next(new Apperror('email dose not match', 400))
 
       
-    }
+    }   
 
     const token = await admin.generateJWTToken()
     admin.password = undefined
@@ -88,7 +88,7 @@ const loginAdmin = async (req, res) => {
     res.status(200).json({
       success: true,
 
-      msg: 'admin login successfully',
+      message: 'admin login successfully',
 
       admin,
       token
