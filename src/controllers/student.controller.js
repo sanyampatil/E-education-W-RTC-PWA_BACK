@@ -1,14 +1,14 @@
-import User from "../models/user.model"
+import Student from '../models/student.model.js'
 
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 1000,
   httpOnly: true,
   secure: false
 }
-const registerUser = async (req, res) => {
-  const { username,email, password } = req.body
+const registerStu = async (req, res) => {
+  const { username, email, password } = req.body
   console.log(email, password, username)
-  console.log("hiiii aalo bhau")
+  console.log('hiiii aalo bhau')
 
   if (!username || !email || !password) {
     res.status(400).json({
@@ -17,41 +17,39 @@ const registerUser = async (req, res) => {
     })
   }
 
-  const existedUser = await User.findOne({ email })
+
+
+  const existedUser = await Student.findOne({ email })
 
   if (existedUser) {
     res.status(400).json({
       success: false,
-      msg: 'user already exists'
+      msg: 'student already exists'
     })
   }
 
-  
-  const user = await User.create({
-
+  const student = await Student.create({
     username,
     email,
     password
   })
 
-  await user.save()
-  admin.password = undefined
+  await student.save()
+  student.password = undefined
 
-  const token = await user.generateJWTToken()
-
+  const token = await student.generateJWTToken()
 
   res.cookie('token', token, cookieOptions)
 
   res.status(400).json({
     success: true,
-    msg: 'user registration successfuly!!',
-    user,
+    msg: 'student registration successfuly!!',
+    student,
     token
   })
 }
 
-const loginUser = async (req, res) => {
-
+const loginStu = async (req, res) => {
   const { email, password } = req.body
   console.log(email)
 
@@ -59,21 +57,21 @@ const loginUser = async (req, res) => {
     if (!password || !email) {
       res.status(400).json({
         success: false,
-        msg: 'user name and email are required'
+        msg: 'student name and email are required'
       })
     }
 
-    const user = await User.findOne({ email }).select('+password')
+    const student = await Student.findOne({ email }).select('+password')
 
-    if (!user || !user.comparePassword(password)) {
+    if (!student || !student.comparePassword(password)) {
       res.status(400).json({
         success: false,
         msg: 'email or password dose not match'
       })
     }
 
-    const token = await user.generateJWTToken()
-    user.password = undefined
+    const token = await student.generateJWTToken()
+    student.password = undefined
 
     res.cookie('token', token, cookieOptions)
 
@@ -82,7 +80,7 @@ const loginUser = async (req, res) => {
 
       msg: 'admin login successfully',
 
-     user,
+      student,
 
       token
     })
@@ -95,13 +93,10 @@ const loginUser = async (req, res) => {
   }
 }
 
+const logoutStu = async (req, res) => {
+  const { id } = req.student
 
-const logoutUser = async (req, res) => {
-    
-  const { id } = req.user
-
-
-  console.log(req.user)
+  console.log(req.student)
 
   res.cookie('token', null, {
     secure: true,
@@ -112,34 +107,29 @@ const logoutUser = async (req, res) => {
   res.status(200).json({
     success: true,
 
-    msg: 'user logout zala'
+    msg: 'student logout zala'
   })
 }
 
-const getUser = async (req, res) => {
-
+const getStu = async (req, res) => {
   try {
-    const userId = req.user.id
+    const userId = req.student.id
 
-
-    const user = await User.findById(userId)
-
-
+    const student = await Student.findById(userId)
 
     res.status(200).json({
       success: true,
 
-      msg: 'user detail',
-      user
+      msg: 'student detail',
+      student
     })
   } catch (error) {
     res.status(200).json({
       success: true,
 
       msg: 'failed to fetch admin profile',
-      user
+      student
     })
   }
 }
-export { registerUser,logoutUser,loginUser,getUser}
-
+export { registerStu, loginStu, logoutStu, getStu }

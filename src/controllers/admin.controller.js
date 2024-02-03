@@ -4,7 +4,7 @@ Apperror
 
 console.log(Admin)
 const cookieOptions = {
-  maxAge: 7 * 24 * 60 * 1000,
+  maxAge: 7 * 24 * 60  * 1000,
   httpOnly: true,
   secure: true
 }
@@ -53,9 +53,10 @@ const registerAdmin = async (req, res, next) => {
         message: 'user registration successfuly!!',
         admin,
         token
-      })
-  } catch (error) {
-    return res.status(200).json({
+      })  
+  }
+   catch (error) {
+    return res.status(400).json({
       success: false,
       msg: 'nahi registration successfuly!!',
       error
@@ -126,29 +127,36 @@ const loginAdmin = async (req, res) => {
 //           200,
 //           {
 //               user: loggedInUser, accessToken, refreshToken
-//           },
+//           }, 
 //           "User logged In Successfully"
 //       )
 //   )
 
 // })
 
-// const logoutAdmin = async (req, res) => {
-//   const { id } = req.admin
+const logoutAdmin = async (req, res) => {
+  const { id } = req.body
 
-//   console.log(req.admin)
-//   res.cookie('token', null, {
-//     secure: true,
-//     maxAge: 0,
-//     httpOnly: true
-//   })
+  console.log(req.body)
 
-//   res.status(200).json({
-//     success: true,
+  
+  res.cookie('token', null, {
+    secure: true,
+    maxAge: 0,
+    httpOnly: true
+  })
 
-//     msg: 'user logout zala'
-//   })
-// }
+
+
+  res.status(200).json({
+    success: true,
+
+    msg: 'user logout zala'
+  })
+
+
+
+}
 
 // const getAdmin = async (req, res) => {
 //   try {
@@ -171,4 +179,4 @@ const loginAdmin = async (req, res) => {
 //     })
 //   }
 // }
-export { registerAdmin,loginAdmin }
+export { registerAdmin,loginAdmin ,logoutAdmin}

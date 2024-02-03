@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
-const userSchema = new Schema(
+const studentSchema = new Schema(
   {
     username: {
       type: String,
@@ -30,7 +30,7 @@ const userSchema = new Schema(
   }
 )
 
-userSchema.pre('save', async function (next) {
+studentSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next()
   }
@@ -40,7 +40,7 @@ userSchema.pre('save', async function (next) {
 })
 
 
-userSchema.methods.generateJWTToken = async function () {
+studentSchema.methods.generateJWTToken = async function () {
   return await jwt.sign(
     {
       id: this._id,
@@ -53,10 +53,10 @@ userSchema.methods.generateJWTToken = async function () {
   )
 }
 
-userSchema.methods.comparePassword = async function (plainTextPassword){
+studentSchema.methods.comparePassword = async function (plainTextPassword){
     return await bcrypt.compare(plainTextPassword, this.password)
 }
 
-const User = mongoose.model('User',userSchema)
+const Student = mongoose.model('Student',studentSchema)
 
-export default User
+export default Student

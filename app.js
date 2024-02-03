@@ -1,8 +1,9 @@
 import express from 'express'
-import adminRouter from './src/router/admin.router.js'
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import bodyParser from 'body-parser'
+import adminRouter from './src/router/admin.router.js'
+import stuRouter from './src/router/student.router.js'
 const app = express()
 
 
@@ -23,5 +24,7 @@ app.use(bodyParser.json())
 
 
 app.use('/api/v1/admin', adminRouter)
+app.use('/api/v1/student',stuRouter )
+
 // app.options('*',cors())
 export default app
