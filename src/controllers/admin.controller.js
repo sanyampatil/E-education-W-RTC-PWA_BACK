@@ -4,12 +4,11 @@ Apperror
 
 console.log(Admin)
 const cookieOptions = {
-  maxAge: 7 * 24 * 60  * 1000,
+  maxAge: 7 * 24 * 60 * 1000,
   httpOnly: true,
   secure: true
 }
 const registerAdmin = async (req, res, next) => {
-
   const { username, email, password } = req.body
   console.log(email, password, username)
   console.log('hiiii aalo bhau 1')
@@ -29,33 +28,32 @@ const registerAdmin = async (req, res, next) => {
 
     // if(!existedUser){
     //   res.status(400).json({
-    //     success: false,  
+    //     success: false,
     //     msg: 'user registration failed'
 
     //   })
     // }
 
-      const admin = await Admin.create({
-        username,
-        email,
-        password
-      })
+    const admin = await Admin.create({
+      username,
+      email,
+      password
+    })
 
-      await admin.save()
+    await admin.save()
     admin.password = undefined
 
     const token = await admin.generateJWTToken()
 
     res.cookie('token', token, cookieOptions)
 
-      res.status(200).json({
-        success: true,
-        message: 'user registration successfuly!!',
-        admin,
-        token
-      })  
-  }
-   catch (error) {
+    res.status(200).json({
+      success: true,
+      message: 'user registration successfuly!!',
+      admin,
+      token
+    })
+  } catch (error) {
     return res.status(400).json({
       success: false,
       msg: 'nahi registration successfuly!!',
@@ -66,30 +64,29 @@ const registerAdmin = async (req, res, next) => {
 
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body
-  console.log(email)
+  console.log('User data>', email, password)
 
   try {
     if (!password || !email) {
       return next(new Apperror('all fields are required', 400))
-      
     }
 
     const admin = await Admin.findOne({ email }).select('+password')
 
     if (!admin || !admin.comparePassword(password)) {
       return next(new Apperror('email dose not match', 400))
-
-      
-    }   
+    }
+    console.log('password compare zala')
 
     const token = await admin.generateJWTToken()
     admin.password = undefined
     res.cookie('token', token, cookieOptions)
+    console.log('cookie set zali')
 
     res.status(200).json({
       success: true,
 
-      message: 'admin login successfully',
+      message: 'admin login successfully',   
 
       admin,
       token
@@ -127,7 +124,7 @@ const loginAdmin = async (req, res) => {
 //           200,
 //           {
 //               user: loggedInUser, accessToken, refreshToken
-//           }, 
+//           },
 //           "User logged In Successfully"
 //       )
 //   )
@@ -138,7 +135,6 @@ const logoutAdmin = async (req, res) => {
   const { id } = req.body
 
   console.log(req.body)
-
   
   res.cookie('token', null, {
     secure: true,
@@ -146,16 +142,11 @@ const logoutAdmin = async (req, res) => {
     httpOnly: true
   })
 
-
-
   res.status(200).json({
     success: true,
 
     msg: 'user logout zala'
   })
-
-
-
 }
 
 // const getAdmin = async (req, res) => {
@@ -179,4 +170,4 @@ const logoutAdmin = async (req, res) => {
 //     })
 //   }
 // }
-export { registerAdmin,loginAdmin ,logoutAdmin}
+export { registerAdmin, loginAdmin, logoutAdmin }

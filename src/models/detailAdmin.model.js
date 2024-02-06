@@ -1,16 +1,34 @@
 import mongoose from 'mongoose'
 const detailAdminSchema = new mongoose.Schema({
+ 
   fullName: {
-    type: String
+    type: String,
+    required: true,
+    unique: true,
+    trim: true, 
+    index: true
   },
   branch: {
-    type: String
+    type: String,
+    required: true,
+    unique: true,
+    trim: true, 
+
   },
   class: {
-    type: String
+    type: String,
+    required: true,
+    unique: true,
+    trim: true, 
+
   },
   subject: {
-    type: String
+    type: String,
+    required: true,
+    unique: true,
+    trim: true, 
+
+
   },
   avatar: {
     type: String

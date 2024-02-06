@@ -61,7 +61,7 @@ adminSchema.methods.generateJWTToken = async function () {
     },
     process.env.ACCESS_TOKEN_SECRET,
     {
-      expiresIn: '2min'
+      expiresIn: '10min'
     }
   )
 }
