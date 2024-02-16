@@ -7,7 +7,7 @@ const detailAdminSchema = new mongoose.Schema({
     unique: true,
     trim: true, 
     index: true
-  },
+  },  
   branch: {
     type: String,
     required: true,
@@ -31,11 +31,12 @@ const detailAdminSchema = new mongoose.Schema({
 
   },
   avatar: {
-    type: String
-  },
-  coverImage: {
-    type: String
-  }
+    type: String, // cloudinary url
+    required: true,
+},
+coverImage: {     
+    type: String, // cloudinary url
+},
 })
 
 const DetailAdmin = mongoose.model('DetailAdmin', detailAdminSchema)
