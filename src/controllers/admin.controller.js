@@ -22,14 +22,14 @@ const registerAdmin = async (req, res, next) => {
     const existedUser = await Admin.findOne({ email })
 
     if (existedUser) {
-      return next(new Apperror('user already exists', 400))
+      return next(new Apperror('Admin already exists', 400))
     }
     console.log('hiiii aalo bhau 3')
 
     // if(!existedUser){
     //   res.status(400).json({
     //     success: false,
-    //     msg: 'user registration failed'
+    //     message: 'user registration failed'
 
     //   })
     // }
@@ -49,14 +49,14 @@ const registerAdmin = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: 'user registration successfuly!!',
+      message: 'Admin registration successfuly!!',
       admin,
       token
     })
   } catch (error) {
-    return res.status(400).json({
+    return res.status(400).json({   
       success: false,
-      msg: 'nahi registration successfuly!!',
+      message: 'nahi registration successfuly!!',
       error
     })
   }
@@ -86,7 +86,7 @@ const loginAdmin = async (req, res) => {
     res.status(200).json({
       success: true,
 
-      message: 'admin login successfully',   
+      message: 'Admin login successfully',
 
       admin,
       token
@@ -95,7 +95,7 @@ const loginAdmin = async (req, res) => {
     res.status(400).json({
       success: false,
 
-      msg: 'admin login nahi zala'
+      message: 'Admin login nahi zala'
     })
   }
 }
@@ -135,7 +135,7 @@ const logoutAdmin = async (req, res) => {
   const { id } = req.body
 
   console.log(req.body)
-  
+
   res.cookie('token', null, {
     secure: true,
     maxAge: 0,
@@ -145,7 +145,7 @@ const logoutAdmin = async (req, res) => {
   res.status(200).json({
     success: true,
 
-    msg: 'user logout zala'
+    message: 'admin  logout zala'
   })
 }
 
@@ -158,14 +158,14 @@ const logoutAdmin = async (req, res) => {
 //     res.status(200).json({
 //       success: true,
 
-//       msg: 'user detail',
+//       message: 'user detail',
 //       admin
 //     })
 //   } catch (error) {
-//     res.status(200).json({
+//     res.status(200).json({me
 //       success: true,
 
-//       msg: 'failed to fetch admin profile',
+//       message: 'failed to fetch admin profile',
 //       user
 //     })
 //   }

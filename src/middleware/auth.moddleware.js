@@ -6,7 +6,7 @@ const isLoggein = (req,res,next)=>{
  if(!token){
   res.status(400).json({
    success:false,
-   msg:"user plz login"
+    msg:"user plz login"
   })
  }
 

@@ -47,7 +47,7 @@ adminSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 10)
   console.log(this)
 //   next()
-})
+})  
 
 adminSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password, this.password)

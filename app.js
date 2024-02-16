@@ -6,7 +6,12 @@ import cors from 'cors'
 // import bodyParser from 'body-parser'
 import adminRouter from './src/router/admin.router.js'
 import stuRouter from './src/router/student.router.js'
+import chatRouter from './src/router/chat.router.js'
+import messageRouter from './src/router/message.route.js'
+
+
 const app = express()
+
 
 
 app.use (cors({
@@ -22,11 +27,17 @@ app.use(express.urlencoded({extended: true, limit: "16kb"}))
 app.use(express.static("public"))
 app.use(cookieParser())
 // app.use(bodyParser.json())
-
+  
 
 
 app.use('/api/v1/admin', adminRouter)
-app.use('/api/v1/student',stuRouter )
+app.use('/api/v1/student',stuRouter ) 
+
+app.use('/api/v1/chat',chatRouter)
+app.use('/api/v1/message',messageRouter )
+
+
+
 
 // app.options('*',cors())
 export default app

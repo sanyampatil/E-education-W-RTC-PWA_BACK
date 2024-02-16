@@ -1,22 +1,25 @@
-const mongoose = require("mongoose");
+// import Student from "./student.model";
+
+import mongoose from "mongoose";
+
 
 const chatModel = mongoose.Schema(
   {
     chatName: { type: String },
     isGroupChat: { type: Boolean },
-    users: [
+    students: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Student",
       },
     ],
     latestMessage: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Message",
-    },
+    },  
     groupAdmin: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Student",
     },
   },
   {
@@ -25,4 +28,4 @@ const chatModel = mongoose.Schema(
 );
 
 const Chat = mongoose.model("Chat", chatModel);
-module.exports = Chat;
+export default Chat
