@@ -1,6 +1,6 @@
 import Apperror from '../middleware/apperror.js'
 import Admin from '../models/admin.model.js'
-Apperror
+
 
 console.log(Admin)
 const cookieOptions = {
@@ -8,6 +8,7 @@ const cookieOptions = {
   httpOnly: true,
   secure: true
 }
+
 const registerAdmin = async (req, res, next) => {
   const { username, email, password } = req.body
   console.log(email, password, username)

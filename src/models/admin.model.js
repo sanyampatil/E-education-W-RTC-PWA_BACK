@@ -11,13 +11,13 @@ const adminSchema = new Schema(
       index: true
     },
     email: {
-      type: String,
+      type: String, 
       required: true,
       unique: true,
       lowecase: true,
       trim: true
     },
-    // fullName: {
+    // fullName: {  
     //     type: String,
     //     required: true,
     //     trim: true,
