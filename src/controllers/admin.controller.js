@@ -10,6 +10,10 @@ const cookieOptions = {
 }
 
 const registerAdmin = async (req, res, next) => {
+
+
+console.log()
+
   const { username, email, password } = req.body
   console.log(email, password, username)
   console.log('hiiii aalo bhau 1')

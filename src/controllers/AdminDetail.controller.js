@@ -1,35 +1,50 @@
+import DetailAdmin from '../models/AdminDetail.model.js'
+import cloudinary from 'cloudinary'
+import fs from 'fs/promises'
 
-import { uploadOnCloudinary } from '../utils/Cloudinary.js'
+const createAdminDatail = async (req, res, next) => {
+  console.log('hiiii')
+  console.log('files>>>', req.file)
+  try {
+    const { fullName, branch, subs,avatar } = req.body
+    console.log(fullName, branch, subs)
 
-const createAdminDatail = async (res, req, next) => {
- const {fullName,branch} = req.body
-  console.log(fullName, branch)
+    const adminDetails = await DetailAdmin.create({
+      fullName, 
+      branch,
+      subs,
+      avatar: {
+        public_id: '',
+        secure_url: ''  
+    }
+    })
 
-  // const avatarLocalPath = req.files?.avatar[0]?.path
-  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+    if (req.file) {
+      const result = await cloudinary.v2.uploader.upload(req.file.path, {
+          folder: "avatar",
+          width: 250,
+          height: 250,
 
-  // if (!avatarLocalPath) {
-  //   return next(new Apperror('avatar file is required', 400))
-  // }
+      });
+      console.log("result",result)
+      if (result) {
+          adminDetails.avatar.public_id = result.public_id
+          adminDetails.avatar.secure_url = result.secure_url
+      }
 
-  // const avatar = await uploadOnCloudinary(avatarLocalPath)
-  // const coverImage = await uploadOnCloudinary(coverImageLocalPath)
-
-  // if (!avatar) {
-  //   return next(new Apperror('avatar file is required', 400))
-  // }
-  const admin = await DetailAdmin.create({
     
-    fullName,
-    branch,
-    subject,
-    // avatar: avatar.url,
-    // coverImage: coverImage?.url || ''
-  })
+      fs.rm(`uploads/${req.file.filename}`)
+  }
+
+   
+
+    res.status(200).json({
+      sucess: true,
+      adminDetails
+    })
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-
-
-export {
- createAdminDatail
-}
+export { createAdminDatail }

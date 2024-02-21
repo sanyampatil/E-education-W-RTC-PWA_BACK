@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import {createAdminDatail} from '../controllers/AdminDetail.controller.js'
+import upload from '../middleware/multer.middleware.js'
+import { createAdminDatail } from '../controllers/AdminDetail.controller.js'
 const DetailRouter = Router()
 
-DetailRouter.route('/details').post(createAdminDatail)
-
+DetailRouter.route('/details').post(upload.single('avatar'), createAdminDatail)
 export default DetailRouter

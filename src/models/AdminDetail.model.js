@@ -2,37 +2,31 @@ import mongoose from 'mongoose'
 const detailAdminSchema = new mongoose.Schema({
   fullName: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
     trim: true,
     index: true
   },
   branch: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
     trim: true
   },
-  // class: {
-  //   type: String,
-  //   required: true,
-  //   unique: true,
-  //   trim: true,
-
-  // },
-  subject: {
+  subs: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
     trim: true
+  },
+  avatar: {
+    public_id: {
+      type: String
+    },
+    secure_url: {
+      type: String
+    }
   }
-  //   avatar: {
-  //     type: String, // cloudinary url
-  //     required: true,f
-  // },
-  // coverImage: {
-  //     type: String, // cloudinary url
-  // },
 })
 
 const DetailAdmin = mongoose.model('DetailAdmin', detailAdminSchema)
