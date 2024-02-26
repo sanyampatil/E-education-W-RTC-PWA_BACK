@@ -37,7 +37,7 @@ app.use('/api/v1/student', stuRouter)
 app.use('/api/v1/chat', chatRouter)
 app.use('/api/v1/message', messageRouter)
 
-app.use('/api/v1/me', DetailRouter)
+app.use('/api/v1/admin/me', DetailRouter)
 
 // app.options('*',cors())
 export default app

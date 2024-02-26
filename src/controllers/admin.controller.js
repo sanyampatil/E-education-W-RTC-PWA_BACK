@@ -175,4 +175,6 @@ const logoutAdmin = async (req, res) => {
 //     })
 //   }
 // }
+
+
 export { registerAdmin, loginAdmin, logoutAdmin }
