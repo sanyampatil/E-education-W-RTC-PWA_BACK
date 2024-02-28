@@ -2,7 +2,7 @@ import DetailAdmin from '../models/AdminDetail.model.js'
 import cloudinary from 'cloudinary'
 import fs from 'fs/promises'
 
-const createAdminDatail = async (req, res, next) => {
+const createAdminDatail = async (req, res, next)   => {
   console.log('hiiii')
   console.log('files>>>', req.file)
   try {

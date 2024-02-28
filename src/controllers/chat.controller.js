@@ -3,7 +3,7 @@ import Chat from "../models/chat.model.js";
 import Student from "../models/student.model.js";
 
 
-const accessChat = asyncHandler(async ( ) => {
+const accessChat = asyncHandler(async ( req,res,next) => {
   const { userId } = req.body;
   console.log("user id",req.user.id)
   console.log(',,,,,,,<<<',userId)

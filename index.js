@@ -3,32 +3,43 @@ import connectDB from './src/db/dbconnection.js'
 import { config } from 'dotenv'
 // import cloudnary from 'cloudinary'
 
-// import { Server, Socket } from 'socket.io'
+// import { Server, Socket } from 'socket.io'1
 config()
 
 const PORT = process.env.PORT
-// const io = new Server()
-// io.on("connection",(socket)=>{
-//   socket.on("join-room",(data)=>{
-//     const {roomId,emailId} = data;
-//     socket.join(roomId);
-//     socket.broadc ast
-//   })
+import { Server } from 'socket.io'
+const io = new Server()
+io.on('connection', socket => {
+  console.log('spcket io connection instablished')
+  socket.on('setup', user => {
+    socket.join(user.data._id)
+    console.log('Server join user >', user.data._id)
+    socket.emit(connetecd)
+  })
+  socket.on('join chat', user => {
+    socket.join(room)
+    console.log('user join room', room)
+  })
 
-// // });
-// cloudnary.v2.config({
-//   cloud_name: process.env.CLOUD_NAME,
-//   api_key: process.env.CLOUD_API_KEY,
-//   api_secret: process.env.CLOUD_API_SECRET
-// })
+  socket.on('new message', newMessageStatus => {
+    var chat = newMessageStatus.chat
+    if (!chat.users) {
+      return console.log('chat users not defined')
+    }
 
-import {v2 as cloudinary} from 'cloudinary';
+    chat.users.forEach(user => {
+      if (user._id == newMessageStatus.sender._id) return
+      socket.in(user._id).emit('message recieved', newMessageRecieved)
+    })
+  })
+})
+import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config({
   cloud_name: 'dyvxumoqh',
   api_key: '579672675569782',
   api_secret: '1-qJkNSnY7ED-PIQXbRjFi1uTAo'
-});
+})
 
 app.listen(PORT, () => {
   connectDB()

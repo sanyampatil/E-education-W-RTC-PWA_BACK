@@ -20,14 +20,14 @@ const detailAdminSchema = new mongoose.Schema({
     trim: true
   },
   avatar: {
-    public_id: {
+    public_id:{
       type: String
     },
-    secure_url: {
+    secure_url:{
       type: String
     }
   }
 })
 
 const DetailAdmin = mongoose.model('DetailAdmin', detailAdminSchema)
-export default DetailAdmin
+export default DetailAdmin              

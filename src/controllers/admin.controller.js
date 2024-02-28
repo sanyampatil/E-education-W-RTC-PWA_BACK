@@ -83,7 +83,7 @@ const loginAdmin = async (req, res) => {
     }
     console.log('password compare zala')
 
-    const token = await admin.generateJWTToken()
+const token = await admin.generateJWTToken()
     admin.password = undefined
     res.cookie('token', token, cookieOptions)
     console.log('cookie set zali')
