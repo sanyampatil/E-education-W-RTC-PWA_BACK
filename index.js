@@ -2,15 +2,30 @@ import app from './app.js'
 import connectDB from './src/db/dbconnection.js'
 import { config } from 'dotenv'
 // import cloudnary from 'cloudinary'
+import {createServer} from  'http'
 
-// import { Server, Socket } from 'socket.io'1
+
 config()
 
 const PORT = process.env.PORT
+
 import { Server } from 'socket.io'
-const io = new Server()
+const server =  createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+})  
+
+
+
 io.on('connection', socket => {
-  console.log('spcket io connection instablished')
+  console.log('socket io connection instablished')
+  console.log(socket.id)
+
   socket.on('setup', user => {
     socket.join(user.data._id)
     console.log('Server join user >', user.data._id)
@@ -33,6 +48,9 @@ io.on('connection', socket => {
     })
   })
 })
+
+
+
 import { v2 as cloudinary } from 'cloudinary'
 
 cloudinary.config({
@@ -41,7 +59,7 @@ cloudinary.config({
   api_secret: '1-qJkNSnY7ED-PIQXbRjFi1uTAo'
 })
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectDB()
   console.log(`server runnig on port http://localhost:${PORT}`)
 })

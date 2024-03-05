@@ -1,29 +1,26 @@
 import mongoose from 'mongoose'
-const detailAdminSchema = new mongoose.Schema({
+const noteUploadSchema = new mongoose.Schema({
   adminId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Admin'
   },
-  fullName: {
+  subName: {
     type: String,
-    // required: true,
-    // unique: true,
+
     trim: true,
     index: true
   },
-  branch: { 
+  className: {
     type: String,
-    // required: true,
-    // unique: true,
+
     trim: true
   },
-  subs: {
+  topicName: {
     type: String,
-    // required: true,
-    // unique: true,
+
     trim: true
   },
-  avatar: {
+  noteFile: {
     public_id: {
       type: String
     },
@@ -33,5 +30,5 @@ const detailAdminSchema = new mongoose.Schema({
   }
 })
 
-const DetailAdmin = mongoose.model('DetailAdmin', detailAdminSchema)
-export default DetailAdmin
+const noteUpload = mongoose.model('noteUpload', noteUploadSchema)
+export default noteUpload

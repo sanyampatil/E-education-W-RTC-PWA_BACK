@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
 const adminSchema = new Schema(
+
+  
   {
     username: {
       type: String,
@@ -10,32 +12,59 @@ const adminSchema = new Schema(
       trim: true,
       index: true
     },
+
+
     email: {
-      type: String, 
+      type: String,
       required: true,
       unique: true,
       lowecase: true,
       trim: true
     },
-    // fullName: {  
-    //     type: String,
-    //     required: true,
-    //     trim: true,
-    //     index: true
-    // },
-    // avatar: {
-    //     type: String, // cloudinary url
-    //     required: true,
-    // },
+
 
     password: {
       type: String,
       required: [true, 'Password is required'],
-      select:false
-    }
+      select: false
+    },
+
+
+
+    DetailAdmin: [
+      {
+        fullName: {
+          type: String,
+          // required: true,f
+          // unique: true,
+          trim: true,
+          index: true
+        },
+        branch: {
+          type: String,
+          // required: true,
+          // unique: true,
+          trim: true
+        },
+        subs: {
+          type: String,
+          // required: true,
+          // unique: true,
+          trim: true
+        },
+        avatar: {
+          public_id: {
+            type: String
+          },
+          secure_url: {
+            type: String
+          }
+        }
+      }
+    ]
   },
   {
-    timestamps: true
+    timestamps: true  
   }
 )
 
@@ -46,13 +75,13 @@ adminSchema.pre('save', async function (next) {
 
   this.password = await bcrypt.hash(this.password, 10)
   console.log(this)
-//   next()
-})  
+  //   next()
+})
 
-adminSchema.methods.isPasswordCorrect = async function(password){
-    return await bcrypt.compare(password, this.password)
+adminSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password)
 }
-
+  
 adminSchema.methods.generateJWTToken = async function () {
   return await jwt.sign(
     {
@@ -66,8 +95,8 @@ adminSchema.methods.generateJWTToken = async function () {
   )
 }
 
-adminSchema.methods.comparePassword = async function (plainTextPassword){
-    return await bcrypt.compare(plainTextPassword, this.password)
+adminSchema.methods.comparePassword = async function (plainTextPassword) {
+  return await bcrypt.compare(plainTextPassword, this.password)
 }
 
 // adminSchema.methods.generateRefreshToken = function(){

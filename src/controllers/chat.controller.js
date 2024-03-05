@@ -19,7 +19,7 @@ const accessChat = asyncHandler(async ( req,res,next) => {
     $and: [
       { students: { $elemMatch: { $eq: req.user._id } } },
       { students: { $elemMatch: { $eq: userId } } },
-    ],
+    ],  
   })
     .populate("students", "-password")
     .populate("latestMessage");

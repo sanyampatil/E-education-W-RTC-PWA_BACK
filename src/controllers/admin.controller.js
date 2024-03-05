@@ -10,9 +10,7 @@ const cookieOptions = {
 }
 
 const registerAdmin = async (req, res, next) => {
-
-
-console.log()
+  console.log()
 
   const { username, email, password } = req.body
   console.log(email, password, username)
@@ -27,7 +25,7 @@ console.log()
     const existedUser = await Admin.findOne({ email })
 
     if (existedUser) {
-      return next(new Apperror('Admin already exists', 400))
+        return next(new Apperror('Admin already exists', 400))
     }
     console.log('hiiii aalo bhau 3')
 
@@ -42,7 +40,18 @@ console.log()
     const admin = await Admin.create({
       username,
       email,
-      password
+      password,
+      adminDetails: [
+        {
+          fullName:"hdjhdjhd",
+          branch:"jknjbjb",
+          subs:"sjsjbjbew",
+          avatar: {
+            public_id: 'sdedffefccef22f33332fewaaz@@#$',
+            secure_url: 'edeferfrfgffg3445gvev#$$G788hhh76y'
+          }
+        }
+      ]
     })
 
     await admin.save()
@@ -59,7 +68,7 @@ console.log()
       token
     })
   } catch (error) {
-    return res.status(400).json({   
+    return res.status(400).json({
       success: false,
       message: 'nahi registration successfuly!!',
       error
@@ -78,12 +87,14 @@ const loginAdmin = async (req, res) => {
 
     const admin = await Admin.findOne({ email }).select('+password')
 
+    console.log('admin is info', admin)
+
     if (!admin || !admin.comparePassword(password)) {
       return next(new Apperror('email dose not match', 400))
     }
     console.log('password compare zala')
 
-const token = await admin.generateJWTToken()
+    const token = await admin.generateJWTToken()
     admin.password = undefined
     res.cookie('token', token, cookieOptions)
     console.log('cookie set zali')
@@ -175,6 +186,5 @@ const logoutAdmin = async (req, res) => {
 //     })
 //   }
 // }
-
 
 export { registerAdmin, loginAdmin, logoutAdmin }
