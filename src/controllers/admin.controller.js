@@ -148,6 +148,7 @@ const loginAdmin = async (req, res) => {
 
 const logoutAdmin = async (req, res) => {
   const { id } = req.body
+  console.log("id",id)
 
   console.log(req.body)
         

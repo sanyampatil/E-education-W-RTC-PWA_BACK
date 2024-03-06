@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-const Schema = new mongoose.Schema({
+const DoubtSchema = new mongoose.Schema({
   adminId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Admin'
@@ -18,7 +18,7 @@ const Schema = new mongoose.Schema({
     index: true
   },
 
-  className: {
+  class_name: {
     type: String,
     // required: true,
     // unique: true,

@@ -13,6 +13,7 @@ import messageRouter from './src/router/message.route.js'
 import bodyParser from 'body-parser'
 import DetailRouter from './src/router/adminDetailsRouter.js'
 import fileUpload from 'express-fileupload'
+import DoutRouter from './src/router/Doubt.route.js'
 
 const app = express()
 // app.use(fileUpload())
@@ -38,6 +39,10 @@ app.use('/api/v1/chat', chatRouter)
 app.use('/api/v1/message', messageRouter)
 
 app.use('/api/v1/admin/me', DetailRouter)
+
+app.use('/api/v1/admin/Doubt', DoutRouter)
+
+
 
 // app.options('*',cors())
 export default app
