@@ -45,11 +45,10 @@ const fetchAllDoubts = expressAsyncHandler(async (req, res) => {
   console.log('ujhbduhduhu')
   const { id } = req.params
   const StudentId = id
-  console.log("id",StudentId)
-  const student = await Doubt.find({StudentId}).select('+studentName')
-  console.log("dataaal",student)
+  console.log('id', StudentId)
+  const student = await Doubt.find({ StudentId }).select('+studentName')
+  console.log('dataaal', student)
 
-  
   // // const StudentId = student._id
   // // if (studentId === _id) {
   // const allDouts = await Doubt.find(studentId)
@@ -60,4 +59,13 @@ const fetchAllDoubts = expressAsyncHandler(async (req, res) => {
   })
 })
 
-export { sendDoubt, fetchAllDoubts }
+const AdminfetchAllDoubts = expressAsyncHandler(async (req, res) => {
+  const allDoubts = await Doubt.find({})
+  console.log('allDoubts', allDoubts)
+  res.status(200).json({
+    sucess:true,
+    allDoubts
+  })
+})
+
+export { sendDoubt, fetchAllDoubts, AdminfetchAllDoubts }
