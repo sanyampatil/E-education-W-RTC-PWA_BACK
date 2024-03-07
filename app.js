@@ -40,7 +40,8 @@ app.use('/api/v1/message', messageRouter)
 
 app.use('/api/v1/admin/me', DetailRouter)
 
-app.use('/api/v1/admin/Doubt', DoutRouter)
+app.use('/api/v1/student/Doubt', DoutRouter)
+
 
 
 

@@ -42,15 +42,21 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
   }
 })
 const fetchAllDoubts = expressAsyncHandler(async (req, res) => {
-  const { _id } = req.body
-  const student = await Doubt.findById(_id)
-  const studentId = student._id
-  // if (studentId === _id) {
-  const allDouts = await Doubt.find(studentId)
+  console.log('ujhbduhduhu')
+  const { id } = req.params
+  const StudentId = id
+  console.log("id",StudentId)
+  const student = await Doubt.find({StudentId}).select('+studentName')
+  console.log("dataaal",student)
+
+  
+  // // const StudentId = student._id
+  // // if (studentId === _id) {
+  // const allDouts = await Doubt.find(studentId)
 
   res.status(200).json({
     sucess: true,
-    allDouts
+    student
   })
 })
 

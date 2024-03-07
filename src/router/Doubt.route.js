@@ -5,8 +5,8 @@ import protect from '../middleware/studentAuthmiddleware.js';
 
 const DoutRouter = Router()
 
-DoutRouter.route('/ask-Dout').post(protect, sendDoubt);
-DoutRouter.route('/my-AllDout').get(protect,fetchAllDoubts);
+DoutRouter.route('/ask-Dout').post(sendDoubt);
+DoutRouter.route('/fetch-AllDout/:id').get(fetchAllDoubts);
 
 
 
