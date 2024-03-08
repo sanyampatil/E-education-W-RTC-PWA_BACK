@@ -1,30 +1,32 @@
 import mongoose from 'mongoose'
-const DoubtSchema = new mongoose.Schema({
+const scheduleSchema = new mongoose.Schema({
   adminId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Admin'
   },
-
-  StudentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Student'
+  Createby: {
+    type: String,
+    trim: true
+  },
+  Time: {
+    type: String,
+    trim: true
   },
 
-  studentName: {
+  Date: {
     type: String,
     // required: true,
     // unique: true,
     trim: true,
     index: true
   },
-
-  class_name: {
+  TitleOfClass: {
     type: String,
     // required: true,
     // unique: true,
     trim: true
   },
-  doubt: {
+  Topic_heading: {
     type: String,
     // required: true,
     // unique: true,
@@ -34,5 +36,5 @@ const DoubtSchema = new mongoose.Schema({
   Dout_date: {}
 })
 
-const Doubt = mongoose.model('Doubt', DoubtSchema)
-export default Doubt
+const schedule = mongoose.model('Doubt', scheduleSchema)
+export default schedule
