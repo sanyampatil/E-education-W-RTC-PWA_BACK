@@ -12,7 +12,7 @@ const upload = multer({
   }),
   fileFilter: (_req, file, cb) => {
     let ext = path.extname(file.originalname)
-    if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
+    if (ext !== '.pdf' && ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png' ) {
       cb('unsuppoerted file', false)
       return
     }

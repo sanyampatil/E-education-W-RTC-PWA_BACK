@@ -15,6 +15,7 @@ import DetailRouter from './src/router/adminDetailsRouter.js'
 import fileUpload from 'express-fileupload'
 import DoutRouter from './src/router/Doubt.route.js'
 import dashboardRouter from './src/router/dashborad.route.js'
+import NotesRouter from './src/router/note.route.js'
 
 const app = express()
 // app.use(fileUpload())
@@ -43,10 +44,10 @@ app.use('/api/v1/admin/me', DetailRouter)
 
 app.use('/api/v1/student/Doubt', DoutRouter)
 app.use('/api/v1/admin-dashboard', dashboardRouter)
-
+app.use('/api/v1/admin-notes', NotesRouter)
 
 
 
 
 // app.options('*',cors())
-export default app
+export default app  

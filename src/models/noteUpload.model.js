@@ -20,7 +20,7 @@ const noteUploadSchema = new mongoose.Schema({
 
     trim: true
   },
-  createBY:{
+  createBy:{
     type: String,
 
     trim: true
@@ -37,5 +37,5 @@ const noteUploadSchema = new mongoose.Schema({
   
 })
 
-const noteUpload = mongoose.model('noteUpload', noteUploadSchema)
-export default noteUpload
+const NoteUpload = mongoose.model('NoteUpload', noteUploadSchema)
+export default NoteUpload
