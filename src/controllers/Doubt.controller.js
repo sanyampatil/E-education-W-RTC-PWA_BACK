@@ -63,7 +63,7 @@ const AdminfetchAllDoubts = expressAsyncHandler(async (req, res) => {
   const allDoubts = await Doubt.find({})
   console.log('allDoubts', allDoubts)
   res.status(200).json({
-    sucess:true,
+    sucess: true,
     allDoubts
   })
 })

@@ -10,12 +10,17 @@ const noteUploadSchema = new mongoose.Schema({
     trim: true,
     index: true
   },
-  className: {
+  class_Name: {
     type: String,
 
     trim: true
   },
   topicName: {
+    type: String,
+
+    trim: true
+  },
+  createBY:{
     type: String,
 
     trim: true
@@ -28,6 +33,8 @@ const noteUploadSchema = new mongoose.Schema({
       type: String
     }
   }
+
+  
 })
 
 const noteUpload = mongoose.model('noteUpload', noteUploadSchema)
