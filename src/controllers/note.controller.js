@@ -59,4 +59,18 @@ const getNotes = async (req, res, next) => {
     getnts
   })
 }
-export { notesUpload, getNotes }
+
+
+
+const StudentgetNotes = async (req, res, next) => {
+  console.log('hiii student  getNotes')
+  
+  
+  const studentNotes = await NoteUpload.find({})
+
+  res.status(200).json({
+    success: true,
+    studentNotes
+  })
+}
+export { notesUpload, getNotes ,StudentgetNotes}
