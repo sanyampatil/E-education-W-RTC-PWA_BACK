@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 const scheduleSchema = new mongoose.Schema({
-  adminId: {
+  adminId : {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Admin'
   },
@@ -13,7 +13,7 @@ const scheduleSchema = new mongoose.Schema({
     trim: true
   },
 
-  Date: {
+  create_Date: {
     type: String,
     // required: true,
     // unique: true,
@@ -36,5 +36,5 @@ const scheduleSchema = new mongoose.Schema({
   Dout_date: {}
 })
 
-const schedule = mongoose.model('Doubt', scheduleSchema)
-export default schedule
+const Schedule = mongoose.model('Schedule', scheduleSchema)
+export default Schedule

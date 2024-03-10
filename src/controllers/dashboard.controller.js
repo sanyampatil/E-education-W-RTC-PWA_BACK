@@ -1,5 +1,6 @@
 import expressAsyncHandler from 'express-async-handler'
 import Student from '../models/student.model.js'
+import Schedule from '../models/schedule.model.js'
 
 const fetchAllStudent = expressAsyncHandler(async (req, res) => {
  
@@ -13,6 +14,29 @@ const fetchAllStudent = expressAsyncHandler(async (req, res) => {
     student
   })
 })
+const CreateScheLiveClass = expressAsyncHandler(async (req, res) => {
+  // const {id} = req.body
+  // console.log("id",id)
+const {Createby,TitleOfClass,Topic_heading,create_Date,Time} = req.body
+const schedule = await Schedule.create({
+  TitleOfClass,
+  Topic_heading,
+  create_Date,
+  Time,
+  Createby
+  // adminId,  
 
-export { fetchAllStudent}
+})
+res.status(200).json({
+  sucess: true,
+  schedule  
+})
+// const schedule = await find({adminId})
+
+
+
+})
+
+
+export { fetchAllStudent,CreateScheLiveClass}
 
