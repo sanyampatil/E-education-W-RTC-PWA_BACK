@@ -17,7 +17,7 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
 
     const StudentId = student._id
 
-    const mydoubt = await Doubt.create({
+    const mydoubt = await  Doubt.create({
       StudentId,
       studentName,
       class_name,

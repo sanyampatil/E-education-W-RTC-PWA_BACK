@@ -4,5 +4,5 @@ import { createAdminDatail, getProfile } from '../controllers/AdminDetail.contro
 const DetailRouter = Router()
 
 DetailRouter.route('/details').post(upload.single('avatar'), createAdminDatail)
-DetailRouter.route('/profile').get(getProfile)
+DetailRouter.route('/profile/:id').get(getProfile)
 export default DetailRouter

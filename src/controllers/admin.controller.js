@@ -82,10 +82,10 @@ const loginAdmin = async (req, res) => {
   try {
     if (!password || !email) {
       return next(new Apperror('all fields are required', 400))
-    }
+    } 
 
     const admin = await Admin.findOne({ email }).select('+password')
-
+    
     console.log('admin is info', admin)
 
     if (!admin || !admin.comparePassword(password)) {
