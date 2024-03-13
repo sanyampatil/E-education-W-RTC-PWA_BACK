@@ -4,14 +4,22 @@ import Schedule from '../models/schedule.model.js'
 
 const fetchAllStudent = expressAsyncHandler(async (req, res) => {
   console.log('ujhbduhduhu')
+  try {
+    const student = await Student.find({})
+    console.log('dataaal', student)
 
-  const student = await Student.find({})
-  console.log('dataaal', student)
-
-  res.status(200).json({
-    sucess: true,
-    student
-  })
+    res.status(200).json({
+      sucess: true,
+      message: 'Load all student',
+      student
+    })
+  } catch (error) {
+    res.status(400).json({
+      sucess: true,
+      message: ' fail to Load all student',
+      error
+    })
+  }
 })
 const CreateScheLiveClass = expressAsyncHandler(async (req, res) => {
   // const {id} = req.body
@@ -27,13 +35,16 @@ const CreateScheLiveClass = expressAsyncHandler(async (req, res) => {
       Createby
       // adminId,
     })
+
+    const Allstudents = await Student.find({})
+    console.log('all student', Allstudents)
+
     res.status(200).json({
       sucess: true,
       message: 'successfully create Schedule',
       schedule
     })
     await schedule.save()
-    // const schedule = await find({adminId})
   } catch (error) {
     res.status(400).json({
       sucess: true,
@@ -59,8 +70,6 @@ const fetchAllSchedule = expressAsyncHandler(async (req, res) => {
       massege: 'gya dabun',
       error
     })
-
-
   }
 })
 export { fetchAllStudent, CreateScheLiveClass, fetchAllSchedule }

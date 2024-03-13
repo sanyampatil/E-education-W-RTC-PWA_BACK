@@ -4,8 +4,6 @@ import Student from '../models/student.model.js'
 
 const sendDoubt = expressAsyncHandler(async (req, res) => {
   try {
-    console.log('hiiiiii')
-    console.log('Add hvydg fgeyfe')
     // const { userId } = req.body
     // console.log('user id', req.user.id)
     // console.log(',,,,,,,<<<', userId) // console.log(req.admin._id)
@@ -14,17 +12,18 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
     console.log(studentName, class_name, doubt, _id)
     const student = await Student.findById(_id)
     console.log(student._id)
-
+    console.log('aalo mi ')
     const StudentId = student._id
+1
+    const Allstudents = await Student.find({})
 
-    const mydoubt = await  Doubt.create({
+    console.log('this is the Student', Allstudents)
+    const mydoubt = await Doubt.create({
       StudentId,
       studentName,
       class_name,
       doubt
     })
-
-    console.log('create entry')
 
     res.status(200).json({
       success: true,
@@ -41,6 +40,37 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
     console.log(error)
   }
 })
+
+const sendMailAll = expressAsyncHandler(async (req, res) => {
+  console.log('send mail')
+  // try {
+  //   const Allstudents = Student.find({})
+  //   console.log(
+  //     'this is the Student',
+  //     Allstudents
+  //   )
+
+  //   // const transporter = nodemailer.createTransport({
+  //   //   service: 'gmail',
+  //   //   auth: {
+  //   //     user: 'patilsanyam869@gmail@gmail.com', // Your Gmail email
+  //   //     pass: 'cjndhbdydvd' // Your Gmail password
+  //   //   }
+  //   // })
+
+  //   // for (const user of users) {
+  //   //   await transporter.sendMail({
+  //   //     from: 'patilsanyam869@gmail@gmail.com',
+  //   //     to: user.email,
+  //   //     subject: 'New Information Available!',
+  //   //     text: message
+  //   //   })
+  //   // }
+  // } catch (error) {
+  //   console.log('error', error)
+  // }
+})
+
 const fetchAllDoubts = expressAsyncHandler(async (req, res) => {
   console.log('ujhbduhduhu')
   const { id } = req.params
@@ -68,4 +98,4 @@ const AdminfetchAllDoubts = expressAsyncHandler(async (req, res) => {
   })
 })
 
-export { sendDoubt, fetchAllDoubts, AdminfetchAllDoubts }
+export { sendDoubt, sendMailAll, fetchAllDoubts, AdminfetchAllDoubts }

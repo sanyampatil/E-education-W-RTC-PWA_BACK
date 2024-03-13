@@ -47,7 +47,7 @@ const notesUpload = async (req, res, next) => {
   }
 }
 
-const getNotes = async (req, res, next) => {
+const getNotes = async (req, res, next) => {  
   console.log('hiii getNotes')
   const { id } = req.params
   console.log(id)

@@ -57,7 +57,7 @@ const getProfile = async (req, res, next) => {
     const adminId = id
     const adminDetails = await DetailAdmin.findOne({ adminId })
 
-    res.status(200).json({  
+    res.status(200).json({
       success: true,
       message: 'create admin profile',
       adminDetails
