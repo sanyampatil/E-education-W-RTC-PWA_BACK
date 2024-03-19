@@ -3,8 +3,6 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 
 const adminSchema = new Schema(
-
-  
   {
     username: {
       type: String,
@@ -13,58 +11,22 @@ const adminSchema = new Schema(
       index: true
     },
 
-
     email: {
       type: String,
       required: true,
       unique: true,
       lowecase: true,
       trim: true
-    },
-
+        },
 
     password: {
       type: String,
       required: [true, 'Password is required'],
       select: false
-    },
-
-
-
-    DetailAdmin: [
-      {
-        fullName: {
-          type: String,
-          // required: true,f
-          // unique: true,
-          trim: true,
-          index: true
-        },
-        branch: {
-          type: String,
-          // required: true,
-          // unique: true,
-          trim: true
-        },
-        subs: {
-          type: String,
-          // required: true,
-          // unique: true,
-          trim: true
-        },
-        avatar: {
-          public_id: {
-            type: String
-          },
-          secure_url: {
-            type: String
-          }
-        }
-      }
-    ]
+    }
   },
   {
-    timestamps: true  
+    timestamps: true
   }
 )
 
@@ -81,7 +43,7 @@ adminSchema.pre('save', async function (next) {
 adminSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password)
 }
-  
+
 adminSchema.methods.generateJWTToken = async function () {
   return await jwt.sign(
     {

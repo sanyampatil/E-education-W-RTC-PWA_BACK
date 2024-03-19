@@ -5,23 +5,26 @@ import Chat from '../models/chat.model.js'
 import Message from '../models/message.model.js'
 
 const allMessages = expressAsyncHandler(async (req, res) => {
+  console.log('hiii in allMessage ')
   try {
     const messages = await Message.find({ chat: req.params.chatId })
       .populate('sender', 'username email')
       .populate('reciever')
       .populate('chat')
     res.json(messages)
+    // console.log('messages...........', messages)
   } catch (error) {
     res.status(400)
-    throw new Error(error.message) 
+    throw new Error(error.message)
   }
 })
 
 const sendMessage = expressAsyncHandler(async (req, res) => {
   const { content, chatId } = req.body
 
+  console.log(content, chatId)
   if (!content || !chatId) {
-      console.log('Invalid data passed into request')
+    console.log('Invalid data passed into request')
     return res.sendStatus(400)
   }
 
@@ -30,7 +33,7 @@ const sendMessage = expressAsyncHandler(async (req, res) => {
     content: content,
     chat: chatId
   }
-console.log("user id from msg",req.user._id)
+  console.log('user id from msg', req.user._id)
 
   try {
     var message = await Message.create(newMessage)

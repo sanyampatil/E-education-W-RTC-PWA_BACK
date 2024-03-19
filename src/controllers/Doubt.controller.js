@@ -14,10 +14,17 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
     console.log(student._id)
     console.log('aalo mi ')
     const StudentId = student._id
-1
-    const Allstudents = await Student.find({})
+    // 1
+    //     const Allstudents = await Student.find({})
+    // console.log('this is the Student', Allstudents)
 
-    console.log('this is the Student', Allstudents)
+    if (!studentName || !class_name || !doubt) {
+      res.status(400).json({
+        sucess: true,
+        massege: 'all fields are required'
+      })
+    }
+
     const mydoubt = await Doubt.create({
       StudentId,
       studentName,
@@ -39,36 +46,6 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
   } catch (error) {
     console.log(error)
   }
-})
-
-const sendMailAll = expressAsyncHandler(async (req, res) => {
-  console.log('send mail')
-  // try {
-  //   const Allstudents = Student.find({})
-  //   console.log(
-  //     'this is the Student',
-  //     Allstudents
-  //   )
-
-  //   // const transporter = nodemailer.createTransport({
-  //   //   service: 'gmail',
-  //   //   auth: {
-  //   //     user: 'patilsanyam869@gmail@gmail.com', // Your Gmail email
-  //   //     pass: 'cjndhbdydvd' // Your Gmail password
-  //   //   }
-  //   // })
-
-  //   // for (const user of users) {
-  //   //   await transporter.sendMail({
-  //   //     from: 'patilsanyam869@gmail@gmail.com',
-  //   //     to: user.email,
-  //   //     subject: 'New Information Available!',
-  //   //     text: message
-  //   //   })
-  //   // }
-  // } catch (error) {
-  //   console.log('error', error)
-  // }
 })
 
 const fetchAllDoubts = expressAsyncHandler(async (req, res) => {
@@ -98,4 +75,4 @@ const AdminfetchAllDoubts = expressAsyncHandler(async (req, res) => {
   })
 })
 
-export { sendDoubt, sendMailAll, fetchAllDoubts, AdminfetchAllDoubts }
+export { sendDoubt, fetchAllDoubts, AdminfetchAllDoubts }
