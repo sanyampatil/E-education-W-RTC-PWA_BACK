@@ -3,12 +3,11 @@ const DoubtSchema = new mongoose.Schema(
   {
     adminId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Admin'
+      ref: 'Admin'    
     },
 
     StudentId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Student'
+      type: String
     },
 
     studentName: {
@@ -30,13 +29,10 @@ const DoubtSchema = new mongoose.Schema(
       // required: true,
       // unique: true,
       trim: true
-    },
-
-    Dout_date: {}
+    }
   },
-
   {
-    timeStamp: true
+    timestamps: true
   }
 )
 

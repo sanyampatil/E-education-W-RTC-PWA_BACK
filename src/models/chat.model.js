@@ -1,7 +1,6 @@
 // import Student from "./student.model";
 
-import mongoose from "mongoose";
-
+import mongoose from 'mongoose'
 
 const chatModel = mongoose.Schema(
   {
@@ -10,25 +9,23 @@ const chatModel = mongoose.Schema(
     students: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Student",
-      },
+        ref: 'Student'
+      }
     ],
     latestMessage: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Mes sage",
-    },  
+      ref: 'Message'
+    },
     groupAdmin: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
-    },
-    
+      ref: 'Student'
+    }
   },
 
-
   {
-    timeStamp: true,
+    timeStamp: true
   }
-);
+)
 
-const Chat = mongoose.model("Chat", chatModel);
+const Chat = mongoose.model('Chat', chatModel)
 export default Chat

@@ -22,17 +22,29 @@ const io = new Server(server, {
 })
 
 const emailToSocketMapping = new Map()
+const SocketToEmailMapping = new Map()
 
 io.on('connection', socket => {
+  // SOCKET FOR VIDEO CHAT
+
   console.log('video connection zal re baba')
   socket.on('join-room', data => {
     const { roomId, emailId } = data
     console.log(`user${emailId} and ${roomId}`)
     emailToSocketMapping.set(emailId, socket.id)
-
+    emailToSocketMapping.set(socket.id, emailId, socket.id)
+    
     socket.join(roomId)
     socket.emit('joined-room', { roomId })
-    socket.broadcast.to(roomId).emit('user-joined', { emailId })
+    socket.emit('user-joined-room', { emailId })
+    console.log('zal re bhau')
+  })
+
+  socket.on('call-user', data => {
+    const { emailId, offer } = data
+    const socketId = emailToSocketMapping.get(socket.id)
+    const fromEmail = SocketToEmailMapping.get(emailId)
+    socket.to(socketId).emit('incomming-call', { from: fromEmail, offer })
   })
 
   console.log('socket io connection instablished')

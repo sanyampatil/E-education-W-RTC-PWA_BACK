@@ -15,7 +15,7 @@ const notesUpload = async (req, res, next) => {
       class_Name,
       topicName,
       createBy,
-      adminId,  
+      adminId,
       noteFile: {
         public_id: '',
         secure_url: ''
@@ -47,30 +47,37 @@ const notesUpload = async (req, res, next) => {
   }
 }
 
-const getNotes = async (req, res, next) => {  
+const getNotes = async (req, res, next) => {
   console.log('hiii getNotes')
   const { id } = req.params
   console.log(id)
-  const adminId = id
-  const getnts = await NoteUpload.find({adminId})
+  try {
+    const adminId = id
+    const getnts = await NoteUpload.find({ adminId })
 
-  res.status(200).json({
-    success: true,
-    getnts
-  })
+    res.status(200).json({
+      success: true,
+      getnts,
+      massege: 'notes'
+    })
+  } catch (error) {
+    console.log('error:-', error)
+  }
 }
-
-
 
 const StudentgetNotes = async (req, res, next) => {
   console.log('hiii student  getNotes')
-  
-  
-  const studentNotes = await NoteUpload.find({})
 
-  res.status(200).json({
-    success: true,
-    studentNotes
-  })
+  try {
+    const studentNotes = await NoteUpload.find({})
+
+    res.status(200).json({
+      success: true,
+      studentNotes,
+      massege: ' Your  Notes'
+    })
+  } catch (error) {
+    console.log('error:-', error)
+  }
 }
-export { notesUpload, getNotes ,StudentgetNotes}
+export { notesUpload, getNotes, StudentgetNotes }

@@ -1,6 +1,7 @@
 import expressAsyncHandler from 'express-async-handler'
 import Student from '../models/student.model.js'
 import Schedule from '../models/schedule.model.js'
+import DetailAdmin from '../models/AdminDetail.model.js'
 
 const fetchAllStudent = expressAsyncHandler(async (req, res) => {
   console.log('ujhbduhduhu')
@@ -72,4 +73,25 @@ const fetchAllSchedule = expressAsyncHandler(async (req, res) => {
     })
   }
 })
-export { fetchAllStudent, CreateScheLiveClass, fetchAllSchedule }
+
+const fetchAllAdmins = expressAsyncHandler(async (req, res) => {
+  console.log('in All admins detail ')
+
+  try {
+    AllAdmins = await DetailAdmin.find({}).populate('adminId')
+    res.status(200).json({
+      massege: 'All staff',
+
+      AllAdmins
+    })
+  } catch (error) {
+    console.log('error'.error)
+  }
+})
+
+export {
+  fetchAllStudent,
+  CreateScheLiveClass,
+  fetchAllSchedule,
+  fetchAllAdmins
+}

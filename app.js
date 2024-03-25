@@ -22,10 +22,10 @@ const app = express()
 // app.use(bodyParser.json())
 app.use(
   cors({
-    origin: process.env.CLINT_URL,  
+    origin: process.env.CLINT_URL,
     credentials: true,
     methods: ['GET', 'POST', 'DELETE', 'PUT']
-  })  
+  })
 )
 
 app.use(express.json())
@@ -46,9 +46,5 @@ app.use('/api/v1/student/Doubt', DoutRouter)
 app.use('/api/v1/admin-dashboard', dashboardRouter)
 app.use('/api/v1/admin-notes', NotesRouter)
 
-
-
-
-
 // app.options('*',cors())
-export default app  
+export default app

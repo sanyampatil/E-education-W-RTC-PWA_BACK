@@ -55,7 +55,7 @@ const registerController = expressAsyncHandler(async (req, res) => {
   const userExist = await Student.findOne({ email })
   if (userExist) {
     // res.send(405);
-    throw new Error('User already Exists')
+    throw new Error('User already   Exists')
   }
   console.log('case 2 pass')
 
@@ -68,14 +68,11 @@ const registerController = expressAsyncHandler(async (req, res) => {
 
   console.log('case 3 pass')
 
-  // create an entry in the db
+  // create an entry in the dbz
   const user = await Student.create({ username, email, password })
   if (user) {
     res.status(201).json({
-      _id: user._id,
-
-      username: user.username,
-      isAdmin: user.isAdmin,
+      user,
       token: generateToken(user._id),
 
       success: true,

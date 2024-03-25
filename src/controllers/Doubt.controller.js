@@ -10,6 +10,7 @@ const sendDoubt = expressAsyncHandler(async (req, res) => {
 
     const { studentName, class_name, doubt, _id } = req.body
     console.log(studentName, class_name, doubt, _id)
+    console.log(_id)
     const student = await Student.findById(_id)
     console.log(student._id)
     console.log('aalo mi ')
@@ -67,12 +68,17 @@ const fetchAllDoubts = expressAsyncHandler(async (req, res) => {
 })
 
 const AdminfetchAllDoubts = expressAsyncHandler(async (req, res) => {
-  const allDoubts = await Doubt.find({})
-  console.log('allDoubts', allDoubts)
-  res.status(200).json({
-    sucess: true,
-    allDoubts
-  })
+  try {
+    const allDoubts = await Doubt.find({})
+    console.log('allDoubts', allDoubts)
+    res.status(200).json({
+      sucess: true,
+      allDoubts,
+      massege: 'All student Doubts'
+    })
+  } catch (error) {
+    console.log('error:-', error)
+  }
 })
 
 export { sendDoubt, fetchAllDoubts, AdminfetchAllDoubts }

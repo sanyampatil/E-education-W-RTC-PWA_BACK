@@ -1,7 +1,6 @@
 import Apperror from '../middleware/apperror.js'
 import Admin from '../models/admin.model.js'
 
-
 console.log(Admin)
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 1000,
@@ -13,6 +12,7 @@ const registerAdmin = async (req, res, next) => {
   console.log()
   const { username, email, password } = req.body
   console.log(email, password, username)
+
   console.log('hiiii aalo bhau 1')
 
   try {
@@ -24,12 +24,12 @@ const registerAdmin = async (req, res, next) => {
     const existedUser = await Admin.findOne({ email })
 
     if (existedUser) {
-        return next(new Apperror('Admin already exists', 400))
+      return next(new Apperror('Admin already exists', 400))
     }
     console.log('hiiii aalo bhau 3')
 
     // if(!existedUser){
-    //   res.status(400).json({
+    //   res.status(400).j  son({
     //     success: false,
     //     message: 'user registration failed'
 
@@ -39,18 +39,7 @@ const registerAdmin = async (req, res, next) => {
     const admin = await Admin.create({
       username,
       email,
-      password,
-      adminDetails: [
-        {
-          fullName:"hdjhdjhd",
-          branch:"jknjbjb",
-          subs:"sjsjbjbew",
-          avatar: {
-            public_id: 'sdedffefccef22f33332fewaaz@@#$',
-            secure_url: 'edeferfrfgffg3445gvev#$$G788hhh76y'
-          }
-        }
-      ]
+      password
     })
 
     await admin.save()
@@ -82,10 +71,10 @@ const loginAdmin = async (req, res) => {
   try {
     if (!password || !email) {
       return next(new Apperror('all fields are required', 400))
-    } 
+    }
 
     const admin = await Admin.findOne({ email }).select('+password')
-    
+
     console.log('admin is info', admin)
 
     if (!admin || !admin.comparePassword(password)) {
@@ -148,10 +137,10 @@ const loginAdmin = async (req, res) => {
 
 const logoutAdmin = async (req, res) => {
   const { id } = req.body
-  console.log("id",id)
+  console.log('id', id)
 
   console.log(req.body)
-        
+
   res.cookie('token', null, {
     secure: true,
     maxAge: 0,
